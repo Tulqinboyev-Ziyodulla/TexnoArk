@@ -42,12 +42,13 @@ const SignUp: React.FC = () => {
   ) => {
     console.log("Failed:", errorInfo);
   };
+
   return (
-    <div className="w-full min-h-screen flex flex-col items-center justify-center py-10">
-      <h2 className="py-5 text-[32px] font-bold">Sign-up page</h2>
+    <div className="w-full min-h-screen flex flex-col items-center justify-center py-10 bg-gray-100">
+      <h2 className="py-5 text-2xl font-bold text-gray-800">Sign-up page</h2>
       <Form
         name="basic"
-        style={{ width: 600 }}
+        className="w-[90%] max-w-[600px] bg-white p-8 rounded-lg shadow-md"
         initialValues={{ remember: true }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
@@ -57,16 +58,9 @@ const SignUp: React.FC = () => {
         <Form.Item<FieldType>
           label="Firstname"
           name="first_name"
-          style={{
-            width: "100%",
-          }}
           rules={[{ required: true, message: "Please enter your first name!" }]}
         >
-          <Input
-            style={{
-              width: "100%",
-            }}
-          />
+          <Input className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-400" />
         </Form.Item>
 
         <Form.Item<FieldType>
@@ -74,7 +68,7 @@ const SignUp: React.FC = () => {
           name="last_name"
           rules={[{ required: true, message: "Please enter your last name!" }]}
         >
-          <Input />
+          <Input className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-400" />
         </Form.Item>
 
         <Form.Item<FieldType>
@@ -92,6 +86,7 @@ const SignUp: React.FC = () => {
             size="middle"
             mask="+998 00 000 00 00"
             placeholder="+998 xx xxx xx xx"
+            className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-400"
           />
         </Form.Item>
 
@@ -100,7 +95,10 @@ const SignUp: React.FC = () => {
           name="email"
           rules={[{ required: true, message: "Please enter your email!" }]}
         >
-          <Input type="email" />
+          <Input
+            type="email"
+            className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-400"
+          />
         </Form.Item>
 
         <Form.Item<FieldType>
@@ -108,28 +106,23 @@ const SignUp: React.FC = () => {
           name="password"
           rules={[{ required: true, message: "Please enter your password!" }]}
         >
-          <Input.Password />
+          <Input.Password className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-400" />
         </Form.Item>
-        <Form.Item label={null}>
+
+        <Form.Item>
           <Button
             type="default"
             htmlType="submit"
-            style={{
-              backgroundColor: "#4CAF50",
-              color: "#fff",
-              padding: "10px 20px",
-              marginBlock: "10px",
-              border: "none",
-              borderRadius: "5px",
-              cursor: "pointer",
-              width: "100%",
-            }}
+            className="w-full py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition"
           >
             Submit
           </Button>
         </Form.Item>
-        <div>
-          <Link to="/">Already have an account?</Link>
+
+        <div className="text-center">
+          <Link to="/" className="text-blue-600 hover:underline">
+            Already have an account?
+          </Link>
         </div>
       </Form>
     </div>

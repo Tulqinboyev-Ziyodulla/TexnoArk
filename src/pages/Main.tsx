@@ -1,91 +1,83 @@
 import React, { useState } from "react";
 import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  LogoutOutlined,
   AppstoreOutlined,
   TagsOutlined,
   ShopOutlined,
   BarChartOutlined,
 } from "@ant-design/icons";
-import { Button, Layout, Menu, theme } from "antd";
+import { Button, Layout, Menu } from "antd";
 
-const { Header, Sider } = Layout;
+const { Sider, Content } = Layout;
 
 const Main: React.FC = () => {
-  const [collapsed, setCollapsed] = useState(false);
-  const {
-    token: { colorBgContainer },
-  } = theme.useToken();
+  const [selectedMenu, setSelectedMenu] = useState<string>("Dashboard"); 
 
   function handleLogOut() {
     localStorage.removeItem("access_token");
     window.location.reload();
   }
 
+  const handleMenuClick = (e: any) => {
+    setSelectedMenu(e.key);
+  };
+
   return (
-    <Layout className="w-full min-h-screen">
-      <Sider trigger={null} collapsible collapsed={collapsed}>
-        <div className="w-full flex items-center justify-center py-[40px] text-white text-[30px]">
-          {collapsed ? "T" : "Texnoark"}
+    <Layout className="w-full min-h-screen bg-gray-100">
+      <Sider
+        className="bg-[#001529] flex flex-col justify-between shadow-lg rounded-r-3xl"
+        width={250} 
+      >
+        <div className="flex items-center justify-center py-8 text-white text-2xl font-bold">
+          Texnoark
         </div>
-        <Menu
+
+        <Menu className="text-[18px]"
           theme="dark"
           mode="inline"
-          defaultSelectedKeys={["1"]}
+          selectedKeys={[selectedMenu]}
+          onClick={handleMenuClick}
           items={[
             {
-              key: "1",
+              key: "Dashboard",
               icon: <BarChartOutlined />,
               label: "Dashboard",
             },
             {
-              key: "2",
+              key: "Products",
               icon: <AppstoreOutlined />,
               label: "Products",
             },
             {
-              key: "3",
+              key: "Categories",
               icon: <TagsOutlined />,
               label: "Categories",
             },
             {
-              key: "4",
+              key: "Brands",
               icon: <ShopOutlined />,
               label: "Brands",
             },
           ]}
         />
-      </Sider>
-      <Layout>
-        <Header
-          style={{
-            padding: 10,
-            background: colorBgContainer,
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
+
+        <div className="p-4">
           <Button
-            type="text"
-            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-            onClick={() => setCollapsed(!collapsed)}
-            style={{
-              fontSize: "16px",
-              width: 64,
-              height: 64,
-            }}
-          />
-          <Button
-            type="text"
-            className="flex items-center"
+            type="primary"
+            danger
             onClick={handleLogOut}
+            className="w-full px-4 py-2 text-white bg-red-600 hover:bg-red-700 rounded-md"
           >
-            <LogoutOutlined />
-            <span>Log out</span>
+            Log out
           </Button>
-        </Header>
+        </div>
+      </Sider>
+
+      <Layout>
+        <Content className="p-6">
+          <div className="bg-white p-6 h-[675px] rounded-lg shadow-md">
+            <h1 className="text-xl font-bold">{selectedMenu}</h1>
+          </div>
+        </Content>
       </Layout>
     </Layout>
   );

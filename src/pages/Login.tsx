@@ -51,11 +51,11 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="w-full min-h-screen flex flex-col items-center justify-center py-10">
-      <h2 className="py-5 text-[32px] font-bold">Login page</h2>
+    <div className="w-full min-h-screen flex flex-col items-center justify-center bg-gray-100 p-6">
+      <h2 className="text-3xl font-bold mb-6 text-gray-800">Login Page</h2>
       <Form
         name="basic"
-        style={{ width: 600 }}
+        className="bg-white shadow-md rounded-lg p-6 w-full max-w-md"
         initialValues={{ remember: true }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
@@ -77,6 +77,7 @@ const Login: React.FC = () => {
             size="middle"
             mask="+998 00 000 00 00"
             placeholder="+998 xx xxx xx xx"
+            className="border rounded-lg w-full p-2"
           />
         </Form.Item>
 
@@ -85,29 +86,22 @@ const Login: React.FC = () => {
           name="password"
           rules={[{ required: true, message: "Please enter your password!" }]}
         >
-          <Input.Password />
+          <Input.Password className="border rounded-lg w-full p-2" />
         </Form.Item>
 
         <Form.Item>
           <Button
-            type="default"
+            type="primary"
             htmlType="submit"
-            style={{
-              backgroundColor: "#4CAF50",
-              color: "#fff",
-              padding: "10px 20px",
-              marginBlock: "10px",
-              border: "none",
-              borderRadius: "5px",
-              cursor: "pointer",
-              width: "100%",
-            }}
+            className="w-full bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition"
           >
             Submit
           </Button>
         </Form.Item>
-        <div className="w-full flex items-center justify-center">
-          <Link to="/sign-up">Do not have an account?</Link>
+        <div className="text-center mt-4">
+          <Link to="/sign-up" className="text-blue-500 hover:underline">
+            Do not have an account?
+          </Link>
         </div>
       </Form>
     </div>
