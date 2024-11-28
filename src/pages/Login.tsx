@@ -2,14 +2,13 @@ import React from "react";
 import type { FormProps } from "antd";
 import { Button, Form, Input } from "antd";
 import MaskedInput from "antd-mask-input";
-
 import { useAxios } from "../hook/useAxios";
 import { API_URL } from "../hook/useEnv";
 import { Link, useNavigate } from "react-router-dom";
 
 type FieldType = {
-  phone_number?: string;
-  password?: string;
+  phone_number: string;
+  password: string;
 };
 
 const Login: React.FC = () => {
@@ -26,12 +25,11 @@ const Login: React.FC = () => {
       if (response?.data?.data?.tokens?.access_token) {
         localStorage.setItem(
           "access_token",
-          response?.data?.data?.tokens?.access_token
+          response.data.data.tokens.access_token
         );
         console.log("Login successful!");
-        window.location.reload();
-        (values.password = ""), (values.phone_number = "");
         navigate("/");
+        window.location.reload();
       }
     } catch (error: any) {
       if (error.response?.status === 404) {
@@ -40,6 +38,7 @@ const Login: React.FC = () => {
         navigate("/sign-up");
       } else {
         console.error("Login error:", error);
+        alert("Login failed. Please try again.");
       }
     }
   };
@@ -52,7 +51,7 @@ const Login: React.FC = () => {
 
   return (
     <div className="w-full min-h-screen flex flex-col items-center justify-center bg-gray-100 p-6">
-      <h2 className="text-3xl font-bold mb-6 text-gray-800">Login Page</h2>
+      <h2 className="text-3xl font-bold mb-6 text-gray-800">Login</h2>
       <Form
         name="basic"
         className="bg-white shadow-md rounded-lg p-6 w-full max-w-md"
@@ -63,7 +62,6 @@ const Login: React.FC = () => {
         layout="vertical"
       >
         <Form.Item<FieldType>
-          label="Phone number"
           name="phone_number"
           rules={[
             { required: true, message: "Please enter your phone number!" },
@@ -82,22 +80,25 @@ const Login: React.FC = () => {
         </Form.Item>
 
         <Form.Item<FieldType>
-          label="Password"
           name="password"
           rules={[{ required: true, message: "Please enter your password!" }]}
         >
-          <Input.Password className="border rounded-lg w-full p-2" />
+          <Input.Password
+            className="border rounded-lg w-full p-2"
+            placeholder="password"
+          />
         </Form.Item>
 
         <Form.Item>
           <Button
             type="primary"
             htmlType="submit"
-            className="w-full bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition"
+            className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition"
           >
             Submit
           </Button>
         </Form.Item>
+
         <div className="text-center mt-4">
           <Link to="/sign-up" className="text-blue-500 hover:underline">
             Do not have an account?

@@ -1,84 +1,34 @@
-import React, { useState } from "react";
-import {
-  AppstoreOutlined,
-  TagsOutlined,
-  ShopOutlined,
-  BarChartOutlined,
-} from "@ant-design/icons";
-import { Button, Layout, Menu } from "antd";
+import React from "react";
+import { Button, Layout } from "antd";
 
-const { Sider, Content } = Layout;
+const { Sider } = Layout;
 
 const Main: React.FC = () => {
-  const [selectedMenu, setSelectedMenu] = useState<string>("Dashboard"); 
-
   function handleLogOut() {
     localStorage.removeItem("access_token");
     window.location.reload();
   }
 
-  const handleMenuClick = (e: any) => {
-    setSelectedMenu(e.key);
-  };
-
   return (
-    <Layout className="w-full min-h-screen bg-gray-100">
+    <Layout className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-500 to-indigo-600">
       <Sider
-        className="bg-[#001529] flex flex-col justify-between shadow-lg rounded-r-3xl"
-        width={250} 
+        className="bg-white shadow-lg flex items-center justify-center rounded-lg"
+        width={300}
       >
-        <div className="flex items-center justify-center py-8 text-white text-2xl font-bold">
-          Texnoark
-        </div>
-
-        <Menu className="text-[18px]"
-          theme="dark"
-          mode="inline"
-          selectedKeys={[selectedMenu]}
-          onClick={handleMenuClick}
-          items={[
-            {
-              key: "Dashboard",
-              icon: <BarChartOutlined />,
-              label: "Dashboard",
-            },
-            {
-              key: "Products",
-              icon: <AppstoreOutlined />,
-              label: "Products",
-            },
-            {
-              key: "Categories",
-              icon: <TagsOutlined />,
-              label: "Categories",
-            },
-            {
-              key: "Brands",
-              icon: <ShopOutlined />,
-              label: "Brands",
-            },
-          ]}
-        />
-
-        <div className="p-4">
+        <div className="p-6 flex flex-col items-center">
+          <h1 className="text-2xl font-bold text-gray-700 mb-6">
+            Welcome to TexnoArk
+          </h1>
           <Button
             type="primary"
             danger
             onClick={handleLogOut}
-            className="w-full px-4 py-2 text-white bg-red-600 hover:bg-red-700 rounded-md"
+            className="w-full py-3 text-lg font-semibold bg-red-500 text-white rounded-lg hover:bg-red-600 shadow-md transition-all duration-300"
           >
             Log out
           </Button>
         </div>
       </Sider>
-
-      <Layout>
-        <Content className="p-6">
-          <div className="bg-white p-6 h-[675px] rounded-lg shadow-md">
-            <h1 className="text-xl font-bold">{selectedMenu}</h1>
-          </div>
-        </Content>
-      </Layout>
     </Layout>
   );
 };
